@@ -1,0 +1,16 @@
+# API credentials – NEVER commit these
+credentials.json
+token.json
+.env
+
+# Output files – generated at runtime, never commit
+tweaked_resume.docx
+*.docx
+client_secret.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
