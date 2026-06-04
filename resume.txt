@@ -1,176 +1,56 @@
-Aniruddh Batibrolu 
-Phone: +1(703) 662-1350
-Email: abatibro@gmail.com
-Linkedin : https://www.linkedin.com/in/aniruddh-b-644ba01b8/
-Senior AI/ML Engineer
-
-PROFESSIONAL SUMMARY:
-
-Senior AI/ML Engineer with 9+ years of experience designing, developing, and deploying enterprise-scale Artificial Intelligence, Machine Learning, Deep Learning, and Generative AI solutions across finance, healthcare, insurance, and technology domains. 
-Proven expertise in architecting end-to-end AI/ML pipelines including data ingestion, preprocessing, feature engineering, model training, deployment, monitoring, drift detection, and automated retraining in production environments. 
-Extensive hands-on experience building Generative AI applications using LLMs, Retrieval-Augmented Generation (RAG), vector databases, prompt engineering, multi-agent systems, and AI orchestration frameworks for intelligent enterprise automation. 
-Strong expertise in NLP, deep learning, and transformer-based architectures including BERT, GPT, Hugging Face Transformers, CNNs, RNNs, LSTMs, and computer vision models.
-Extensive experience leveraging cloud platforms such as Microsoft Azure (Azure Data Factory, Blob Storage, ML Studio, Functions) and AWS (Lambda, EC2, S3, API Gateway) for scalable deployments.
-Proficient in designing and implementing end-to-end machine learning workflows using TensorFlow, Keras, and Scikit-learn.
-Proven track record of applying supervised, unsupervised, and deep learning techniques using Python, PyTorch, TensorFlow, and Scikit-learn to drive business insights and automation.
-Expertise in end-to-end ML pipeline development, including data preprocessing, feature engineering, model selection, training, evaluation, and deployment in cloud environments (AWS, GCP, Azure).
-Skilled in MLOps practices, including version control, CI/CD pipelines, automated retraining, and model monitoring using tools like MLflow, Vertex AI, Airflow, and Docker.
-Experienced in working with large-scale structured and unstructured data, leveraging tools like SQL, BigQuery, Spark, and Pandas to build robust, production-grade models.
-Skilled in developing scalable Natural Language Processing (NLP) pipelines and advanced predictive analytics models.
-Proficient at big data processing using PySpark, Apache NiFi, and Spark SQL to integrate and transform large datasets.
-Experienced with relational and NoSQL databases including SQL Server, MongoDB, and PostgreSQL for effective data management.
-Hands-on expertise with CI/CD tools such as Git, GitHub, Jenkins, and GitLab to ensure continuous integration and smooth deployment.
-Strong command of Linux (Ubuntu, Red Hat) and Unix systems, facilitating efficient automation through Bash scripting.
-Developed and deployed NLP and generative AI models (e.g., Transformers, BERT, LLMs) to power intent detection, summarization, and intelligent chat interfaces.
-Strong foundation in statistical modeling, A/B testing, and experiment design, enabling data-driven decision-making and continuous model improvement.
-Collaborative team player with a focus on business alignment, translating complex AI solutions into actionable outcomes and presenting to both technical and non-technical stakeholders.
-Proven capability in collaborating with cross-functional teams to translate complex business requirements into technical solutions.
-Passionate about continuous learning and driving innovation in AI-driven insights and data processing technologies.
-
-TECHNICAL SKILLS:
-
-Cloud Platforms
-Microsoft Azure (Cloud Services: Data Factory, Blob Storage, ML Studio, Functions), GCP, AWS (Cloud Services: Lambda, EC2, S3, API Gateway)
-Programming Languages
-Python (Scripting/Data Processing), C++, Java (Object-Oriented Programming), Shell Scripting (Automation)
-Databases
-SQL Server (Relational), MongoDB (NoSQL), PostgreSQL (Relational)
-Data Processing & Integration
-PySpark (Big Data Processing),Hadoop, Apache, NiFi (Data Integration), Spark SQL (Data Querying)
-Machine Learning & Data Science
-TensorFlow (Deep Learning Framework), Keras (Deep Learning API), Scikit-learn (ML Algorithms), Auto-sklearn
-Containerization & Orchestration
-Docker (Containerization), Kubernetes (Orchestration)
-Version Control & CI/CD
-Git (Version Control), Jenkins (CI/CD Automation), GitHub (Repository Hosting), GitLab
-Operating Systems
-Linux (Ubuntu, Red Hat) (Operating System), Unix (Multi-user Environment)
-
-
-PROFESSIONAL EXPERIENCE:
-
-USAA –  San Antonio, TX                                                                                                                  April 2025 to Present
-Senior AI/ML Engineer
-
-
-Responsibilities:
-Developed scalable NLP pipelines using Python and TensorFlow, integrating Microsoft Azure (Azure Data Factory, Blob Storage, ML Studio, Functions) for efficient cloud-based processing.
-Designed predictive analytics models with Keras and Scikit-learn to extract actionable insights from unstructured data.
-Built real-time NLP pipelines optimized for low-latency performance and high throughput using Azure Functions and Kafka.
-Designed and trained deep learning models using TensorFlow, PyTorch, and Keras for NLP, computer vision, and time-series forecasting applications.
-Built scalable data preprocessing pipelines using Pandas, NumPy, and Spark, enabling real-time feature extraction from structured and unstructured data.
-Engineered domain-specific features and performed dimensionality reduction (PCA, t-SNE), increasing model performance and reducing training time.
-Deployed ML models to production using Docker, FastAPI, and AWS SageMaker, enabling low-latency predictions with real-time inference APIs.
-Built scalable model endpoints and batch inference systems on GCP AI Platform and Azure ML, integrating with internal applications and dashboards.
-Implemented differential privacy and PII redaction strategies in datasets, supporting compliance with GDPR and CCPA.
-Designed permissioned model access controls in SageMaker and Azure ML, ensuring secure and auditable ML workflows.
-Developed a new data scheme for the data consumption store for the Machine Learning and AI models to quicken the processing time using SQL, Hadoop, and Cloud services.
-Designed CI/CD pipelines for ML workflows using MLflow, Kubeflow, and Airflow, reducing deployment time and enhancing reproducibility.
-Implemented model versioning, drift detection, and automated retraining strategies, ensuring consistent model performance in production.
-Collaborated with data engineering teams to build end-to-end pipelines using Kafka, Spark, and AWS Glue, supporting real-time model inputs and feedback loops.
-Ingested and processed large-scale datasets (100M+ rows) from SQL, NoSQL, and external APIs for model training and analytics.
-Monitored production workloads and performed system-level debugging in Linux environments for performance bottlenecks.
-Engineered end-to-end machine learning workflows, utilizing Docker for containerization and Kubernetes for orchestration.
-
-Environment: Microsoft Azure (Azure Data Factory,Kafka, Performance Tuning, Azure Monitor,  Blob Storage, ML Studio, Functions), AWS (Lambda, S3), Python, TensorFlow, Docker, Kubernetes, GitHub, Jenkins, Apache NiFi, PySpark, Spark SQL, Java, Linux.
-
-Dell Technologies - Round Rock, TX				                                             June 2023 to March 2025
-AI/ML Engineer
-
-Responsibilities:
-Designed and developed enterprise AI/ML solutions for predictive analytics, intelligent automation, customer insights, supply chain optimization, and infrastructure performance monitoring. 
-Built end-to-end machine learning pipelines for data ingestion, preprocessing, feature engineering, model training, deployment, monitoring, and automated retraining using Python, TensorFlow, PyTorch, and Scikit-learn. 
-Developed Generative AI and LLM-based applications using Retrieval-Augmented Generation (RAG), vector databases, prompt engineering, and AI orchestration frameworks for enterprise knowledge management and intelligent assistants. 
-Implemented NLP solutions for document classification, semantic search, sentiment analysis, summarization, and automated ticket routing using transformer-based architectures including BERT and GPT models. 
-Built scalable MLOps pipelines using MLflow, Kubeflow, Airflow, Docker, and Kubernetes to streamline model lifecycle management and deployment automation. 
-Designed and deployed production-grade ML services using FastAPI, Flask, REST APIs, and containerized microservices architectures. 
-Built real-time and batch analytics pipelines using Apache Spark, Kafka, and distributed computing frameworks for large-scale enterprise data processing.
-Designed and developed NLP pipelines to improve search relevance and user experience by incorporating semantic search capabilities.
-Proficient in using TensorFlow, PyTorch, and Keras to build and optimize generative models, employing hyperparameter tuning and regularization techniques to enhance performance.
-Designed and implemented supervised and unsupervised ML models (regression, classification, clustering) using Scikit-learn, XGBoost, and LightGBM.
-Developed deep learning models using TensorFlow and PyTorch for applications in NLP, computer vision, and time-series forecasting.
-Applied transfer learning using pre-trained architectures like BERT, ResNet, and EfficientNet to reduce training time and improve accuracy.
-Engineered features using statistical, domain-based, and automated techniques to enhance model performance and interpretability.
-Built time-series models (ARIMA, Prophet, LSTM) for forecasting KPIs such as sales, demand, and churn rates.
-Collaborated with cross-functional teams, including data engineers, to extract and execute data from MongoDB using the MongoDB connector for Hadoop.
-Worked with large datasets using multi-processing techniques in libraries like NumPy and Pandas to overcome threading limitations.
-Developed a Flask API for processing input failure logs, generating summarized content, and integrating with a Large Language Model (LLM) for concise text generation.
-Experienced in creating data-driven dashboards using Tableau and Superset to provide valuable insights for management.
-Experienced in advanced skills in Python, Tableau, and Excel for comprehensive data analysis, visualization, and model development.
-
-Environment: Python, Tableau, Power BI, Machine Learning (Scikit-Learn, Keras, PyTorch), Cognitive Search, Fast API, Data Analysis (Pandas, NumPy), Django Web Framework, HTML, XHTML, AJAX, CSS, JavaScript, XML, JSON, Flask, Agile Methodologies, SCRUM Process
-
-Mayo Clinic - Rochester, MN                                                                                                        Jan 2021 to May 2023
-Data Scientist/ML Engineer
-
-Responsibilities:
-Designed and developed AI/ML solutions for clinical analytics, patient outcome prediction, disease risk assessment, medical imaging analysis, and healthcare operational optimization.
-Developed predictive models for patient readmission, early disease detection, treatment effectiveness, and healthcare utilization forecasting using supervised and unsupervised learning techniques. 
-Implemented NLP solutions for clinical text mining, medical document classification, named entity recognition, and healthcare knowledge extraction using BERT and transformer-based architectures. 
-Developed Generative AI and LLM-powered applications leveraging RAG architectures, vector databases, and prompt engineering for clinical decision support and medical research automation. 
-Adopted MLOps practices within GCP to manage the entire machine learning lifecycle, from data preparation to model training and deployment. 
-Demonstrated expertise in SQL, with proficiency in Google BigQuery, enabling efficient data manipulation and analysis.
-Performed exploratory data analysis (EDA) using Pandas, NumPy, and Seaborn to uncover patterns, trends, and correlations in large datasets.
-Conducted statistical hypothesis testing (t-tests, ANOVA, chi-square) to validate business assumptions and drive actionable insights.
-Identified key KPIs through correlation analysis and feature importance techniques, informing product and marketing strategies.
-Built and deployed supervised learning models (e.g., logistic regression, random forest, XGBoost) for classification and regression tasks.
-Developed time-series forecasting models (ARIMA, Prophet, LSTM) to predict revenue, demand, and inventory trends.
-Designed unsupervised learning models (K-Means, DBSCAN, hierarchical clustering) for customer segmentation and anomaly detection.
-Performed hyperparameter tuning using GridSearchCV and RandomizedSearch to improve model performance and generalization.
-Scripted SQL code for extracting and pivoting critical data (MDN’s, RSRP, network congestion) from various databases such as Oracle DB, Teradata, and GCP, demonstrating versatility in handling diverse data sources.
-Created dynamic dashboards using Tableau, Power BI, and Plotly to visualize KPIs, trends, and model outcomes for stakeholders.
-Automated reporting processes and data pipelines using SQL and Python, reducing manual effort and ensuring data availability.
-Translated complex analyses into business-friendly presentations and visualizations for cross-functional teams and leadership.
-Conducted analysis of A/B test outcomes, focusing on statistical significance and practical implications using Python. This rigorous evaluation informed process optimization decisions.
-Developed a comprehensive data visualization solution using Python, integrating advanced statistical methods to represent data distributions through histograms, bar plots, and bell curves.
-
-Environment: Python (Pandas, NumPy, Scikit-learn, PyTorch, Transformers, Matplotlib, Seaborn), SQL, Google Cloud Platform (GCP) Vertex AI, Cloud Build, Cloud Deploy, BigQuery, Predictive modeling, Deep Learning (CNNs, RNNs), Generative AI, Transformers, Intent Extraction, Shannon Entropy
-
-Vanguard - Malvern, PA                                                                                                                     Jan 2019 to Dec 2020
-Data Scientist 
-
-Responsibilities:
-Developed machine learning and statistical models for portfolio analytics, customer segmentation, investment forecasting, fraud detection, and financial risk assessment. 
-Built end-to-end data science pipelines covering data ingestion, preprocessing, feature engineering, model training, validation, deployment, and monitoring using Python, Scikit-learn, TensorFlow, and Spark MLlib. 
-Designed predictive analytics solutions for customer behavior analysis, investment recommendations, churn prediction, and wealth management optimization. 
-Implemented NLP solutions for financial document classification, sentiment analysis, entity extraction, and automated reporting using transformer-based models and text analytics techniques.
-Delivered dashboards and data visualizations using Tableau / Power BI / Matplotlib / Seaborn to communicate KPIs to stakeholders.
-Conducted exploratory data analysis to identify patterns, trends, and anomalies across structured and unstructured datasets.
-Built interactive dashboards and visualizations using tools such as Tableau, Power BI, and Seaborn for stakeholder reporting.
-Developed ETL pipelines using Python, SQL, and Airflow to automate data ingestion and transformation from multiple sources (APIs, databases, logs).
-Worked with relational databases (PostgreSQL, MySQL) and NoSQL systems (MongoDB, Elasticsearch) for data extraction and storage.
-Deployed predictive models using FastAPI, Docker, and AWS Lambda for scalable inference across business applications.
-Collaborated with DevOps teams to establish CI/CD pipelines and monitor model performance in production environments.
-Used SHAP and LIME to explain model predictions to non-technical stakeholders and ensure transparency in high-stakes use cases.
-Conducted fairness audits and sensitivity analysis to detect and mitigate potential bias in training data and model outputs.
-Responsible for providing educational guidance and assistance for students by planning schedules, recommending courses and determining appropriate education solutions for different types of students.
-Delivers to advisor for review day prior to meeting. Back up to front desk, answers phones and Participate in company meetings.
-
-Environment: supervised/unsupervised learning, NLP, Reinforcement learning, Python, scikit-learn, Tableau, Power BI, spaCy, Hugging Face, SHAP, and LIME.
-
-Sonata Software - Hyderabad, India				                                                     Aug 2016 to Sep 2018
-Data Analyst
-
-Responsibilities:
-Analyzed large, complex datasets using SQL, Excel, and Python to identify trends, outliers, and actionable business insights.
-Performed descriptive, diagnostic, and predictive analytics to improve business performance and customer engagement.
-Cleaned, transformed, and validated large datasets using Python (Pandas, NumPy) and SQL to ensure consistency, accuracy, and usability.
-Standardized data across multiple sources, handled missing values, outliers, and implemented data normalization techniques.
-Conducted exploratory data analysis (EDA) to uncover trends, outliers, and correlations supporting strategic decisions.
-Built interactive dashboards and reports using Power BI, Tableau, and Looker to visualize KPIs and performance metrics for business users.
-Performed correlation analysis, regression modeling, and forecasting to support demand planning, budgeting, and risk analysis.
-Designed and analyzed A/B tests to measure the impact of marketing and product initiatives using statistical significance testing.
-Developed complex SQL queries to extract, join, and aggregate data from relational databases like PostgreSQL, MySQL, and SQL Server.
-Built automated reporting workflows using SQL + Power BI/Tableau refreshes, ensuring timely delivery of insights to business units.
-Designed custom visualizations and dashboards to track metrics such as churn, conversion, revenue, and customer engagement.
-Translated data insights into easy-to-understand visual narratives tailored for both technical and non-technical audiences.
-Delivered data-driven recommendations that directly influenced product design, customer targeting, and operational decisions.
-Wrote complex SQL queries to extract, join, and manipulate data from multiple relational databases (MySQL, PostgreSQL, Snowflake, Redshift, etc.).
-Delivered executive-level insights by combining internal KPIs with market data, supporting quarterly strategic planning.
-Created dynamic reports and dashboards in Power BI / Tableau / Looker / Excel to visualize KPIs such as sales growth, churn rate, conversion rate, and operational metrics.
-
-Environment: SQL, Python, R, Power BI, Tableau, Looker, Excel, Google Data Studio, MySQL, PostgreSQL, Oracle, Snowflake, BigQuery, Redshift, Alteryx, Talend, SSIS, Airflow, Git, GitHub, JIRA, Confluence, Trello
-
-
-
-
+Aniruddh C Batibrolu
+Mountain View, CA 94040
+ 281-650-1895 # abatibro@gmail.com ï linkedin.com/in/aniruddhbatibro
+Education
+George Mason University Aug 2022 – May 2024
+Master of Science in Computer Science Notable Courses : Data Structures and Algoritms, Adv NLP, Artificial Intelligence
+University of Mumbai Jun 2018 – May 2022
+Bachelor of Science in Computer Science Notable Courses : Distributed Systems, Operating Systems, OOP
+Technical Skills
+Languages: Java, Python, Java, Scala, C
+Data Science Libraries: Pandas, NumPy, Scikit-learn, Hugging Face, Spacy, LangChain
+Big Data: Apache Spark, Kafka, Airflow, Flink, Dataproc, AWS EMR, Databricks
+AWS: S3, Glue, EMR, Kinesis, Athena, Lambda, EC2
+GCP: BigQuery, Cloud Storage, Dataproc, Dataflow, Cloud Composer
+Tools: Git, Shell, Unix, Linux, Docker, Kubernetes
+Experience
+Walmart April 2025 – Present
+Software Engineer Sunnyvale, CA
+– Built and exposed multiple FastAPI endpoints to serve core business logic, enabling seamless integration with
+downstream services through API-driven communication. To facilitate High frequency Batch processing schedule creation
+on our Data Platform
+– Implemented authentication for a full-stack application by integrating with a platform service, registering it within an
+Istio-based service mesh, and configuring secure service-to-service communication with proper identity and access controls
+– Implemented unit testing using pytest and integrated SonarQube for static code analysis to ensure code quality, test
+coverage, and adherence to best practices
+– Designed and implemented multithreaded orchestration in a Spark (Scala) application to concurrently load data across
+heterogeneous sources and sinks, increasing throughput and reducing end-to-end latency.
+– Built and launched a modular data integration tool in Scala enabling declarative data movement between GCS, Kafka,
+Postgres/MySQL, and NoSQL systems.
+– Migrated cron-based persistent Spark Java applications to Airflow with ephemeral Dataproc clusters, improving
+observability and reducing infrastructure costs.
+– Optimized complex Spark SQL queries on large-scale customer behavior datasets, reducing execution time by 40% and
+lowering cluster resource utilization.
+– Implemented CI/CD pipelines using Walmart’s cloud-native platform with LooperPro for CI and Concord for CD.
+– Implemented manual offset tracking in a spark-kafka Connector. To run the producer in a batch manner to only red the
+delta and reduce latency.
+Brain Tree Solutions October 2024 – March 2025
+Data Scientist Cedar Park, TX
+– Built NLP and LLM-based pipelines (Mistral-7B, Llama3-7B, Gemma2-9B) to extract structured features from
+unstructured text, generating 300K+ new data points.
+– Developed clustering and labeling pipelines over 650K+ mission statements using KMeans, spaCy embeddings,
+Label2Vec, RoBERTa, and BART, achieving ˜98% binary classification accuracy.
+Infinite Computer Solutions May 2023 – Aug 2023
+Software Engineer Rockville, MD
+– Built custom Tableau dashboards to generate stakeholder insights from customer data, improving access to business
+metrics.
+– Refactored ASP.NET Core APIs to improve response times and meet updated business requirements.
+– Designed and implemented RESTful endpoints in ASP.NET Core to support scalable service integrations.
+Academic Projects
+Sarcasm Detection Transformer | Python, PyTorch, BERT, NLP, CUDA Aug 2024 – Dec 2024
+– Fused frozen RoBERTa text embeddings and frozen ViT image embeddings by implementing a custom cross-attention
+and multi-head attention mechanism from scratch in PyTorch to align visual and textual sarcasm cues
+– Implemented KV Cache manually in the attention layers alongside mixed precision training and CUDA acceleration,
+reducing training time by 30% and improving inference speed by 25%
+– Trained and evaluated on the MUStARD dataset, achieving a 15% improvement in cross-modal accuracy over a
+single-modality RoBERTa baseline
