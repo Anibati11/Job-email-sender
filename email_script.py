@@ -280,11 +280,8 @@ def generate_email(_resume_data: dict, jd: dict) -> dict:
 
     body = f"""Hey {recruiter_first},
 
-I am Aniruddh. I am writing to express my interest in the {role}. With my extensive experience as a Senior AI/ML engineer.
+I am Aniruddh. I am writing to express my interest in the {role}. With my extensive experience as an AI/ML engineer.
 
-My Work Authorization - GC EAD.
-
-Hourly Expected rate - 80$/hr 
 
 {dynamic_paras}
 
