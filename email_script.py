@@ -14,6 +14,7 @@ You hit Send. The script never sends on your behalf.
 """
 
 import os, sys, re, base64, json, webbrowser, subprocess, textwrap, time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from json_repair import repair_json
 from pathlib import Path
 from email.mime.multipart import MIMEMultipart
@@ -28,6 +29,11 @@ try:
     import anthropic
 except ImportError:
     sys.exit("Missing dependency: pip install anthropic")
+
+try:
+    import cohere
+except ImportError:
+    sys.exit("Missing dependency: pip install cohere")
 
 import requests
 
@@ -51,8 +57,10 @@ from config import (
     ANTHROPIC_API_KEY, ANTHROPIC_MODEL,
     GOOGLE_API_KEY, GOOGLE_API_KEY_2, GEMINI_MODEL, LLM_PROVIDER,
     HUGGINGFACE_API_KEY, HUGGINGFACE_MODEL,
+    COHERE_API_KEY, COHERE_MODEL,
+    OLLAMA_MODEL, OLLAMA_BASE_URL,
     SENDER_GMAIL, GOOGLE_CREDENTIALS_FILE, GOOGLE_TOKEN_FILE,
-    GMAIL_SCOPES, OUTPUT_RESUME_PATH,
+    GMAIL_SCOPES, RESUME_PATH, JOBS_FOLDER,
 )
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -109,9 +117,32 @@ def call_llm(system: str, user: str) -> str:
             messages   = [{"role": "user", "content": user}],
         )
         return msg.content[0].text.strip()
+    elif LLM_PROVIDER == "cohere":
+        client = cohere.ClientV2(api_key=COHERE_API_KEY, timeout=300)
+        response = client.chat(
+            model=COHERE_MODEL,
+            messages=[
+                {"role": "system", "content": system},
+                {"role": "user",   "content": user},
+            ],
+        )
+        return response.message.content[0].text.strip()
+    elif LLM_PROVIDER == "ollama":
+        client = OpenAI(base_url=OLLAMA_BASE_URL, api_key="ollama")
+        response = client.chat.completions.create(
+            model=OLLAMA_MODEL,
+            messages=[
+                {"role": "system", "content": "/no_think\n" + system},
+                {"role": "user",   "content": user},
+            ],
+            temperature=0,
+            max_tokens=4096,
+            extra_body={"options": {"num_ctx": 4096, "num_gpu": 999}},
+        )
+        return response.choices[0].message.content.strip()
     elif LLM_PROVIDER == "huggingface":
         client = OpenAI(
-                        base_url="https://router.huggingface.co/v1",
+                        base_url="https://api-inference.huggingface.co/v1",
                         api_key=HUGGINGFACE_API_KEY,
                         )
         for attempt in range(3):
@@ -152,14 +183,20 @@ def tweak_resume(resume_raw: str, jd: dict) -> dict:
     """
     Asks Claude to:
       - Inject relevant keywords from the JD naturally
-      - Update the location to match the job
+      - Update the location to match the job (or keep resume location if JD has none)
       - Return structured JSON with sections
     """
+    jd_location = jd.get('LOCATION', '').strip()
+    if jd_location:
+        location_instruction = f'Set the candidate\'s location in the contact section to "{jd_location}" to match the job location.'
+    else:
+        location_instruction = "Keep the candidate's location exactly as it appears in the current resume — do not change it."
+
     system = textwrap.dedent("""
         You are an expert resume writer and ATS optimizer.
         Given a resume and a job description, you will:
         1. Naturally weave in missing keywords/technologies from the JD (never fabricate experience).
-        2. Update the candidate's listed location to match the job location.
+        2. LOCATION_INSTRUCTION
         3. Keep all bullet points truthful and specific.
         4. Return ONLY valid JSON with this exact structure – no markdown fences, no extra text.
            IMPORTANT: use exactly these key names, do not rename or add keys:
@@ -200,7 +237,7 @@ def tweak_resume(resume_raw: str, jd: dict) -> dict:
         IMPORTANT REQUIREMENTS:
         - "summary" must be a JSON array of exactly 20 concise bullet strings (no leading dashes).
         - Each experience entry's "bullets" array must contain AT LEAST 16 items.
-    """)
+    """).replace("LOCATION_INSTRUCTION", location_instruction)
 
     user = f"""
 JOB LOCATION: {jd.get('LOCATION', '')}
@@ -216,30 +253,47 @@ COMPANY: {jd.get('COMPANY', '')}
     return json.loads(repair_json(extract_json(raw_json)))
 
 
-def generate_email(resume_data: dict, jd: dict) -> dict:
-    """Returns {"subject": "...", "body": "..."}"""
+def _generate_dynamic_paragraphs(jd: dict) -> str:
+    """Calls the LLM to write 2 body paragraphs tailored to the JD."""
     system = textwrap.dedent("""
-        You are a professional job-application email writer.
-        Write a concise, compelling cold-application email from a candidate to a recruiter.
-        Rules:
-        - Subject line: punchy, role-specific, under 12 words.
-        - Body: 3–4 short paragraphs. No fluff. Highlight 2-3 specific technical strengths
-          that match the JD. Mention the resume is attached.
-        - End with a professional sign-off using the candidate's name.
-        - Return ONLY valid JSON, no markdown fences:
-          {"subject": "...", "body": "..."}
+        You are writing part of a job-application email. Write in first person as the candidate.
+        Given the job description, write exactly 2 short paragraphs (no headers, no bullet points):
+        1. One paragraph about your expertise and how it relates to the role's AI/ML focus.
+        2. One paragraph about your specific technical skills that match the JD requirements.
+        Use "I", "my", "me" throughout — never refer to the candidate in third person.
+        Keep it concise (2-3 sentences each). Do not mention name, location, rate, or sign-off.
+        Return ONLY the two paragraphs separated by a blank line, no extra text.
     """)
+    user = f"JOB DESCRIPTION:\n{jd.get('JD_BODY', '')[:1500]}"
+    return call_llm(system, user).strip()
 
-    user = f"""
-CANDIDATE: {resume_data['name']}
-ROLE: {jd.get('JD_BODY', '')[:400]}
-COMPANY: {jd.get('COMPANY', '')}
-RECRUITER: {jd.get('RECRUITER_NAME', 'Hiring Manager')}
-CANDIDATE SUMMARY: {resume_data['summary']}
-TOP SKILLS: {resume_data['skills'].get('big_data','')} | {resume_data['skills'].get('cloud','')}
-"""
-    raw = call_llm(system, user)
-    return json.loads(repair_json(extract_json(raw)))
+
+def generate_email(_resume_data: dict, jd: dict) -> dict:
+    """Returns {"subject": "...", "body": "..."} using a fixed template with dynamic middle paragraphs."""
+    recruiter_name  = (jd.get("RECRUITER_NAME") or "Hiring Manager").strip()
+    recruiter_first = recruiter_name.split()[0]
+    role            = jd.get("ROLE", jd.get("JD_BODY", "")[:80].split("\n")[0].strip())
+    company         = jd.get("COMPANY", "your company")
+
+    subject         = f"Senior AI/ML Engineer – {role} | Aniruddh Batibrolu"
+    dynamic_paras   = _generate_dynamic_paragraphs(jd)
+
+    body = f"""Hey {recruiter_first},
+
+I am Aniruddh. I am writing to express my interest in the {role}. With my extensive experience as a Senior AI/ML engineer.
+
+My Work Authorization - GC EAD.
+
+Hourly Expected rate - 80$/hr 
+
+{dynamic_paras}
+
+Please find my resume attached for further details. I am excited about the opportunity to discuss how my skills can benefit {company}.
+
+Best regards,
+Aniruddh Batibrolu"""
+
+    return {"subject": subject, "body": body}
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -382,7 +436,7 @@ def build_docx(data: dict, output_path: str):
 # 4.  Gmail API – open compose window (you hit Send)
 # ─────────────────────────────────────────────────────────────────────────────
 
-def get_gmail_service():
+def get_creds():
     creds = None
     if Path(GOOGLE_TOKEN_FILE).exists():
         creds = Credentials.from_authorized_user_file(GOOGLE_TOKEN_FILE, GMAIL_SCOPES)
@@ -395,7 +449,7 @@ def get_gmail_service():
             )
             creds = flow.run_local_server(port=0)
         Path(GOOGLE_TOKEN_FILE).write_text(creds.to_json())
-    return build("gmail", "v1", credentials=creds)
+    return creds
 
 
 def create_draft(service, to: str, subject: str, body: str, attachment_path: str) -> str:
@@ -420,55 +474,79 @@ def create_draft(service, to: str, subject: str, body: str, attachment_path: str
         body={"message": {"raw": raw}}
     ).execute()
 
-    draft_id = draft["id"]
-    print(f"✅ Gmail draft created  (id: {draft_id})")
-
-    # Build the Gmail compose URL and open it
+    draft_id    = draft["id"]
     compose_url = f"https://mail.google.com/mail/u/0/#drafts/{draft['message']['id']}"
-    print(f"🌐 Opening browser → {compose_url}")
-    webbrowser.open(compose_url)
-    return draft_id
+    print(f"✅ Gmail draft created  (id: {draft_id})")
+    return compose_url
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# 5.  Main
+# 5.  Per-job pipeline
 # ─────────────────────────────────────────────────────────────────────────────
 
-def main():
-    print("\n📄 Reading files …")
-    jd_raw     = read_file("job_desc.txt")
-    resume_raw = read_file("resume.txt")
+def process_job(jd_path: Path, creds) -> str:
+    service    = build("gmail", "v1", credentials=creds)
+    jd_raw     = read_file(str(jd_path))
+    resume_raw = read_file(RESUME_PATH)
     jd         = parse_job_desc(jd_raw)
 
-    print(f"   Company:    {jd.get('COMPANY','?')}")
-    print(f"   Location:   {jd.get('LOCATION','?')}")
-    print(f"   Recruiter:  {jd.get('RECRUITER_NAME','?')}  <{jd.get('RECRUITER_EMAIL','?')}>")
+    print(f"   [{jd_path.name}] Company: {jd.get('COMPANY','?')}  |  Recruiter: {jd.get('RECRUITER_NAME','?')} <{jd.get('RECRUITER_EMAIL','?')}>")
 
-    print("\n🤖 Calling Gemini to tweak resume …")
     resume_data = tweak_resume(resume_raw, jd)
-    print(f"   Name:       {resume_data['name']}")
-    print(f"   Location:   {resume_data['contact'].get('location', resume_data['contact'].get('city', '?'))}")
+    email_data  = generate_email(resume_data, jd)
 
-    print("\n🤖 Calling Gemini to draft email …")
-    email_data = generate_email(resume_data, jd)
-    print(f"   Subject:    {email_data['subject']}")
+    company_slug = jd.get("COMPANY", "Resume").replace(" ", "_")
+    out_path     = f"resumes/Aniruddh_{company_slug}.docx"
+    build_docx(resume_data, out_path)
 
-    print("\n📝 Building .docx resume …")
-    build_docx(resume_data, OUTPUT_RESUME_PATH)
-
-    print("\n🔐 Authenticating with Gmail …")
-    service = get_gmail_service()
-
-    print("\n📬 Creating Gmail draft …")
-    create_draft(
+    url = create_draft(
         service,
         to              = jd["RECRUITER_EMAIL"],
         subject         = email_data["subject"],
         body            = email_data["body"],
-        attachment_path = OUTPUT_RESUME_PATH,
+        attachment_path = out_path,
     )
 
-    print("\n✨ Done! Review the draft in your browser and hit Send when ready.\n")
+    jd_path.rename(jd_path.parent / "done" / jd_path.name)
+    return url
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 6.  Main
+# ─────────────────────────────────────────────────────────────────────────────
+
+def main():
+    jobs_dir   = Path(JOBS_FOLDER)
+    done_dir   = jobs_dir / "done"
+    failed_dir = jobs_dir / "failed"
+    for d in (jobs_dir, done_dir, failed_dir):
+        d.mkdir(exist_ok=True)
+
+    job_files = sorted(jobs_dir.glob("*.txt"))
+    if not job_files:
+        print("No jobs found in jobs/ — run add_job.py first.")
+        return
+
+    print(f"\n🔐 Authenticating with Gmail …")
+    creds = get_creds()
+
+    print(f"\n🚀 Processing {len(job_files)} job(s) with 6 threads …\n")
+    draft_urls = []
+    with ThreadPoolExecutor(max_workers=6) as executor:
+        futures = {executor.submit(process_job, p, creds): p for p in job_files}
+        for future in as_completed(futures):
+            p = futures[future]
+            try:
+                url = future.result()
+                draft_urls.append(url)
+                print(f"✅ Done: {p.name}")
+            except Exception as e:
+                print(f"❌ Failed: {p.name} — {e}")
+                p.rename(failed_dir / p.name)
+
+    print(f"\n✨ All jobs processed! Opening {len(draft_urls)} draft(s) in browser …\n")
+    for url in draft_urls:
+        webbrowser.open(url)
 
 
 if __name__ == "__main__":
